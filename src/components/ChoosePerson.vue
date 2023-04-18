@@ -38,9 +38,10 @@
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import Input from "./Input.vue";
+import { useStore } from "../store";
+let store = useStore();
 
 // 当前被选中的角色id
-const personCheckId = ref(0);
 
 // 角色表
 const personList = reactive([
@@ -52,13 +53,14 @@ const personList = reactive([
 // 选择新的角色
 function chooseNewPerson(index: number) {
   // 把旧的设置成false
-  personCheckId.value !== -1 && (personList[personCheckId.value].state = false);
+  store.state.personCheckId !== -1 &&
+    (personList[store.state.personCheckId].state = false);
   // 把新的设置成true
-  if (personCheckId.value !== index) {
+  if (store.state.personCheckId !== index) {
     personList[index].state = true;
-    personCheckId.value = index;
+    store.action.updatePersonCheckId(index);
   } else {
-    personCheckId.value = -1;
+    store.action.updatePersonCheckId(-1);
   }
 }
 // 编辑角色
