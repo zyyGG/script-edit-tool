@@ -10,7 +10,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, defineEmits, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 
 const props = defineProps(["type", "value"]);
 const emit = defineEmits(["handleEndInput"]);
