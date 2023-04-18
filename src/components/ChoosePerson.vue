@@ -7,7 +7,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item, index) of personList" :key="index">
+      <tr v-for="(item, index) of store.state.personList" :key="index">
         <!-- 显示框 -->
         <td
           v-show="!item.isEditor"
@@ -41,36 +41,33 @@ import Input from "./Input.vue";
 import { useStore } from "../store";
 let store = useStore();
 
-// 当前被选中的角色id
-
 // 角色表
-const personList = reactive([
-  { name: "破布袍神秘人", state: true, isEditor: false },
-  { name: "墨兰", state: false, isEditor: false },
-  { name: "盾甲城城主", state: false, isEditor: false },
-]);
 
 // 选择新的角色
 function chooseNewPerson(index: number) {
   // 把旧的设置成false
   store.state.personCheckId !== -1 &&
-    (personList[store.state.personCheckId].state = false);
+    (store.state.personList[store.state.personCheckId].state = false);
   // 把新的设置成true
   if (store.state.personCheckId !== index) {
-    personList[index].state = true;
-    store.action.updatePersonCheckId(index);
+    store.state.personList[index].state = true;
+    store.state.personCheckId = index;
   } else {
-    store.action.updatePersonCheckId(-1);
+    store.state.personCheckId = -1;
   }
 }
 // 编辑角色
 function changePerson(value: string, index: number) {
-  personList[index].name = value;
-  personList[index].isEditor = false;
+  store.state.personList[index].name = value;
+  store.state.personList[index].isEditor = false;
 }
 // 添加新角色
 function addNewPerson() {
-  personList.push({ name: "路人甲", state: false, isEditor: false });
+  store.state.personList.push({
+    name: "路人甲",
+    state: false,
+    isEditor: false,
+  });
 }
 </script>
 <style lang="css"></style>
