@@ -9,22 +9,13 @@
     <tbody>
       <tr v-for="(item, index) of store.state.personList" :key="index">
         <!-- 显示框 -->
-        <td
-          v-show="!item.isEditor"
-          class="personCol"
-          :class="{ personCheck: item.state }"
-          @click="chooseNewPerson(index)"
-          @dblclick="item.isEditor = true"
-        >
+        <td v-show="!item.isEditor" class="personCol" :class="{ personCheck: item.state }" @click="chooseNewPerson(index)"
+          @dblclick="item.isEditor = true">
           {{ item.name }}
         </td>
         <!-- 输入框 -->
         <td v-show="item.isEditor">
-          <Input
-            type="text"
-            @handleEndInput="(value) => changePerson(value, index)"
-            :value="item.name"
-          />
+          <Input type="text" @handleEndInput="(value) => changePerson(value, index)" :value="item.name" />
         </td>
       </tr>
       <tr>
@@ -70,4 +61,25 @@ function addNewPerson() {
   });
 }
 </script>
-<style lang="css"></style>
+<style lang="css" scoped>
+/* 人物选取 */
+.personChoose {
+  margin-right: 5rem;
+  box-sizing: border-box;
+}
+
+/* 每一个人物 */
+.personCol {
+  border-right: 3px solid #555555;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.personCheck {
+  border-right-color: white;
+}
+
+td {
+  padding: 1rem 1.5rem;
+}
+</style>
