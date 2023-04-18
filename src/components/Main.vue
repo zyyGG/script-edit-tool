@@ -16,21 +16,14 @@
     <tbody>
       <tr v-for="(item, index) in date" :key="index">
         <!-- npc选择,单击进入编辑,双击快速选择 -->
-        <td @dblclick="item.person.isEditor = true">
-          <span v-show="!item.person.isEditor">{{ item.person.date }}</span>
+        <td>
           <!-- 输入框 -->
-          <Input
-            v-show="item.person.isEditor"
-            :value="item.person.date"
-            @handle-end-input="
-              (value) => {
-                [item.person.date, item.person.isEditor] = [value, false];
-              }
-            "
-          />
+          <Input :value="item.person" @handle-end-input="(value) => (item.person = value)" />
         </td>
         <!-- 编辑框 -->
-        <td>{{ item.description }}</td>
+        <td>
+          <Input :value="item.description" @handle-end-input="(value) => (item.description = value)" align="left" />
+        </td>
         <!-- 地点框 -->
         <td>{{ item.location }}</td>
         <!-- 时间轴 -->
@@ -53,7 +46,7 @@ const store = useStore();
 // 剧本树
 const date = reactive([
   {
-    person: { date: "破布袍神秘人", isEditor: false },
+    person: "破布袍神秘人",
     description: "拿起了桌子上的烛台",
     location: "沉眠王座",
     time: "14:26",
@@ -62,21 +55,26 @@ const date = reactive([
 
 function addNewDescription() {
   date.push({
-    person: {
-      date:
-        (store.state.personList[store.state.personCheckId] &&
-          store.state.personList[store.state.personCheckId].name) ||
-        "",
-      isEditor: false,
-    },
+    person: (store.state.personList[store.state.personCheckId] && store.state.personList[store.state.personCheckId].name) || "",
     description: "",
     location: date[date.length - 1].location,
     time: "",
   });
 }
-
-function test(item: any) {
-  console.log(item.person);
-}
 </script>
-<style lang="css"></style>
+<style lang="css" scoped>
+table {
+  border-collapse: collapse;
+}
+
+th {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+td,
+th {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1rem 1.3rem;
+}
+</style>
