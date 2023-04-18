@@ -9,18 +9,16 @@ const State: stateIF = {
   personCheckId: 0,
 };
 
-// 创建动态State
-function createState(state: stateIF) {
-  return reactive(state);
-}
-
 // 创建修改方法
 function updatePersonCheckId(state: stateIF) {
   return (value: number) => {
     state.personCheckId = value;
   };
 }
-
+// 创建动态State
+function createState(state: stateIF) {
+  return reactive(state);
+}
 // 创建Action
 function createAction(state: stateIF) {
   return {

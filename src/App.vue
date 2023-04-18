@@ -8,7 +8,6 @@
 import ChoosePerson from "./components/ChoosePerson.vue";
 import Main from "./components/Main.vue";
 
-
 // 测试用例
 function test() {
   console.log("test");
