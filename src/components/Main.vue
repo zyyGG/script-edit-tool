@@ -14,21 +14,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item, index) in date" :key="index">
+      <tr v-for="(item, index) in store.state.mainDate" :key="item.id">
         <!-- npc选择,单击进入编辑,双击快速选择 -->
-        <td>
+        <td @click="changeType('person', index)">
           <!-- 输入框 -->
           <Input :value="item.person" @handle-end-input="(value) => (item.person = value)" />
         </td>
         <!-- 编辑框 -->
-        <td>
-          <Input :value="item.description" @handle-end-input="(value) => (item.description = value)" align="left" />
+        <td @click="changeType('description', index)">
+          <Input :value="item.description" @handle-end-input="(value) => (item.description = value)" align="left"
+            :type="item.type" :isDescription="true" />
         </td>
         <!-- 地点框 -->
-        <td>{{ item.location }}</td>
+        <td @click="changeType('location', index)">
+          {{ item.location }}
+        </td>
         <!-- 时间轴 -->
-        <td>{{ item.time }}</td>
-        <td>Del</td>
+        <td @click="changeType('time', index)">
+          {{ item.time }}
+        </td>
+        <td class="button" @click="removeDate(index)">Del</td>
       </tr>
       <tr>
         <td class="addButton" :colspan="4" @click="addNewDescription">添加</td>
@@ -38,28 +43,30 @@
   </table>
 </template>
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
 import Input from "./Input.vue";
 import { useStore } from "../store";
 const store = useStore();
 
 // 剧本树
-const date = reactive([
-  {
-    person: "破布袍神秘人",
-    description: "拿起了桌子上的烛台",
-    location: "沉眠王座",
-    time: "14:26",
-  },
-]);
-
 function addNewDescription() {
-  date.push({
+  store.state.mainDate.push({
+    id: store.state.dateCount++,
     person: (store.state.personList[store.state.personCheckId] && store.state.personList[store.state.personCheckId].name) || "",
     description: "",
-    location: date[date.length - 1].location,
+    location: store.state.mainDate[store.state.mainDate.length - 1].location,
     time: "",
+    type: store.state.mainDate[store.state.mainDate.length - 1].type
   });
+}
+
+function changeType(type: string, index: number) {
+  store.state.chooseType = type
+  store.state.chooseLine = index
+}
+
+function removeDate(index: number) {
+  store.state.mainDate.splice(index, 1)
+  // store.state.mainDate = store.state.mainDate.filter(fil => fil.id !== id)
 }
 </script>
 <style lang="css" scoped>
@@ -76,5 +83,9 @@ td,
 th {
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 1rem 1.3rem;
+}
+
+.button {
+  cursor: pointer;
 }
 </style>
