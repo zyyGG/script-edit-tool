@@ -2,11 +2,13 @@
   <div class="container">
     <ChoosePerson />
     <Main />
+    <Tool />
   </div>
 </template>
 <script lang="ts" setup>
 import ChoosePerson from "./components/ChoosePerson.vue";
 import Main from "./components/Main.vue";
+import Tool from "./components/Tool.vue";
 
 </script>
 <style lang="css">
