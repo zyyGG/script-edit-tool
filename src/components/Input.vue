@@ -36,31 +36,23 @@ onMounted(() => {
 </script>
 <style lang="css" scoped>
 .input {
-
   display: inline-block;
-  border-right: 3px solid transparent;
-  /* width: inherit; */
+  /* border-right: 3px solid transparent; */
   min-width: 10rem;
   background-color: transparent;
+  border: 1px solid transparent;
+  padding: 1rem 2rem;
 }
 
 .input:focus-visible {
-  outline: none;
+  border-color: #dddddd;
 }
 
 .front {
   margin-right: 5rem;
 }
 
-/* .input::before {
-  content: attr(data-before);
-  margin-right: 5rem;
-} */
 
-/* .input::after {
-  content: attr(data-after);
-  margin-left: 5rem;
-} */
 
 .action {
   color: orange;
