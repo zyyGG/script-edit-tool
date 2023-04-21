@@ -18,7 +18,7 @@ import Tool from "./components/Tool.vue";
 
 html {
   font-size: 62.5%;
-  /* font-size: 100%; */
+  /* font-size: 70%; */
 }
 
 
