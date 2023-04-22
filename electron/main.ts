@@ -10,6 +10,6 @@ app.whenReady().then(() => {
     win.loadURL(process.env.VITE_DEV_SERVER_URL);
   } else {
     // Load your file
-    win.loadFile("dist/index.html");
+    win.loadFile("index.html");
   }
 });
