@@ -8,10 +8,10 @@
     </div>
 
     <div class="grid" v-for="item in store.state.date">
-      <span>{{ item.role }}</span>
-      <span>{{ item.behavior }}</span>
-      <span>{{ item.stage }}</span>
-      <span>{{ item.time }}</span>
+      <span date-type="role">{{ item.role }}</span>
+      <span date-type="behavior">{{ item.behavior }}</span>
+      <span date-type="stage">{{ item.stage }}</span>
+      <span date-type="time">{{ item.time }}</span>
     </div>
   </div>
 </template>
